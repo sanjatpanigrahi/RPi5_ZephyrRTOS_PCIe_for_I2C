@@ -1,0 +1,28 @@
+/* app/boards/rpi_5.overlay */
+ / {
+    chosen {
+        zephyr,pcie-controller = &pcie2;
+    };
+
+    rp1_i2c1: i2c1 {
+        compatible = "brcm,rp1-pcie-i2c";
+        status = "okay";
+
+        /* Optional (only used by device_get_binding) */
+        label = "RP1_I2C1";
+
+        /* IMPORTANT: header pins 3/5 are GPIO2/3 => use RP1 I2C1 */
+        rp1-i2c-index = <1>;
+
+        pcie-bus = <0>;
+        pcie-device = <0>;
+        pcie-function = <0>;
+        pcie-bar = <1>;
+
+        clock-frequency = <100000>;  /* start at 100k, later try 400k */
+    };
+};
+
+&pcie2 {
+    status = "okay";
+};
